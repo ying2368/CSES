@@ -34,4 +34,5 @@ const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
 signed main(){
     opt;
+    
 }
