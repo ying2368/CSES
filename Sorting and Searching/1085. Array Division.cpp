@@ -24,7 +24,7 @@ using namespace std;
 #define ll long long
 
 const auto dir = vector< pair<int, int> > { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
-const int MAXN = 1e18 + 50;
+const int MAXN = 2e5 + 50;
 const int Mod = 1e9 + 7;
 const long long LLINF = 0x7FFFFFFFFFFFFFFF;
 const int INF = 0x7FFFFFFF;
@@ -32,31 +32,14 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
-int n, t, res;
-int arr[200005];
-
-bool valid(int time){
-    
-    int total = 0;
-    for(int i = 0; i < n; i++){
-        total += time / arr[i];
-        if(total >= t) return false;
-    }
-    return true;
-}
+int n,k, res;
+int arr[MAXN];
 
 signed main(){
     opt;
-    cin >> n >> t;
+    cin >> n >> k;
 
     for(int i = 0; i < n; i++) cin >> arr[i];
 
-    int step = MAXN;
-    while(step){
-        
-        if(valid(res + step)) res+=step;
-        else step/=2;
-    }
 
-    cout << res+1 << "\n";
 }
