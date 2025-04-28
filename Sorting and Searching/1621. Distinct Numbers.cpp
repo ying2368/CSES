@@ -24,7 +24,7 @@ using namespace std;
 #define ll long long
 
 const auto dir = vector< pair<int, int> > { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
-const int MAXN = 2e5 + 50;
+const int MAXN = 1e8 + 50;
 const int Mod = 1e9 + 7;
 const long long LLINF = 0x7FFFFFFFFFFFFFFF;
 const int INF = 0x7FFFFFFF;
@@ -32,37 +32,18 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
-int n, k, res, ans;
-int arr[MAXN];
-
-bool valid(int r){
-    // cout << "r: " << r << "\n";
-    int s = 0, c = 1;
-
-    for(int i = 0; i < n; i++){
-        if(arr[i] > r) return true;
-        else if(s + arr[i] <= r) s += arr[i];
-        else{
-            c++;
-            s = arr[i];
-        }
-    }
-
-    // cout << ", c: " << c << "\n";
-    if(c > k) return true;
-    else return false;
-}
-
+int n, m, arr[200005];
+set<int> st;
 signed main(){
     opt;
-    cin >> n >> k;
-    for(int i = 0; i < n; i++) cin >> arr[i];
 
-    int step = 1e18;
-    while(step > 0){
-        if(valid(res + step)) res += step;
-        else step /= 2;
+    cin >> n;
+    for(int i=0;i<n;i++){
+        cin >> m;
+        st.insert(m);
     }
 
-    cout << res+1 << "\n";
+    int c=0;
+    for(auto it=st.begin();it!=st.end();it++) c++;
+    cout << c << "\n";
 }

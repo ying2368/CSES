@@ -24,7 +24,7 @@ using namespace std;
 #define ll long long
 
 const auto dir = vector< pair<int, int> > { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
-const int MAXN = 2e5 + 50;
+const int MAXN = 1e8 + 50;
 const int Mod = 1e9 + 7;
 const long long LLINF = 0x7FFFFFFFFFFFFFFF;
 const int INF = 0x7FFFFFFF;
@@ -32,37 +32,48 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
-int n, k, res, ans;
-int arr[MAXN];
+int n,m;
+int arr[1005][1005];
+string s;
+int c;
 
-bool valid(int r){
-    // cout << "r: " << r << "\n";
-    int s = 0, c = 1;
+queue<pair<int,int>> q; 
 
-    for(int i = 0; i < n; i++){
-        if(arr[i] > r) return true;
-        else if(s + arr[i] <= r) s += arr[i];
-        else{
-            c++;
-            s = arr[i];
-        }
-    }
-
-    // cout << ", c: " << c << "\n";
-    if(c > k) return true;
-    else return false;
-}
 
 signed main(){
     opt;
-    cin >> n >> k;
-    for(int i = 0; i < n; i++) cin >> arr[i];
 
-    int step = 1e18;
-    while(step > 0){
-        if(valid(res + step)) res += step;
-        else step /= 2;
+    cin >> n >> m;
+    for(int i = 0; i < n; i++){
+        cin >> s;
+        for(int j = 0 ; j < m; j++){
+            if(s[j] == '.') arr[i][j] = 1;
+        }
     }
 
-    cout << res+1 << "\n";
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(arr[i][j] == 1){
+                c++;
+                q.push({i,j});
+                arr[i][j] = 0;
+
+                while(!q.empty()){
+                    for(int k = 0; k < 4; k++){
+                        int a = q.front().F + dir[k].F, b = q.front().S + dir[k].S;
+                        if( a >= 0 && a < n && b >= 0 && b < m ){
+                            if(arr[a][b] == 1){
+                                q.push({a,b});
+                                arr[a][b] = 0;
+                            }
+                        }
+                    }
+
+                    q.pop();
+                }
+            }
+        }
+    }
+
+    cout << c << "\n";
 }
