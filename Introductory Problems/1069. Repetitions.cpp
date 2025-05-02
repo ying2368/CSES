@@ -5,7 +5,6 @@ using namespace std;
 int main()
 {
 	string s;
-
 	int i = 1, n = 1, max = 1;
 	cin >> s;
 

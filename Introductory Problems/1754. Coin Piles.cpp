@@ -32,45 +32,20 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
-int n, x, m, sum, c;
-int s[200005];
-
-bool valid(int a, int b){
-    if(b == -1){
-        if(s[a]>=x) return true;
-    }else{
-        if( s[a] - s[b] >= x) return true; 
-        else return false;
-    }
-
-    return false;
-}
+int t, a, b;
 
 signed main(){
     opt;
-
-    cin >> n >> x;
-    for(int i = 0; i < n; i++){
-        cin >> m;
-        sum += m;
-        s[i] = sum; 
-        
-        int step = i+1, res = -1;
-        while(step > 0 && res <= i){
-            // cout << "res+step: " << res+step << "\n";
-            if(res+step > i) step/=2;
-            else if(valid(i, res+step)) res += step;
-            else step /= 2;
+    cin >> t;
+    
+    for(int i=0;i<t;i++){
+        cin >> a >> b;
+        if(b > a) swap(a, b);
+    
+        if((a + b) % 3 == 0){
+            if(a - b <= b) cout << "YES\n";
+            else cout << "NO\n";
         }
-
-        // cout << i << " " << res << "\n";;
-        if(res == -1){
-            if(s[i] == x) c++;
-        }        
-        else {
-            if(s[i]-s[res] == x) c++;
-        }
+        else cout << "NO\n";
     }
-
-    cout << c << "\n";
 }
