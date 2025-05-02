@@ -32,6 +32,38 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
+string s;
+int f[26], b[26], c, flag = -1;
+
 signed main(){
     opt;
+    cin >> s;
+
+    int size = s.size();
+    for(int i=0;i<size;i++){
+        if(f[s[i]-'A'] > b[s[i]-'A']) b[s[i]-'A']++;
+        else f[s[i]-'A']++;
+    }
+    for(int i=0;i<26;i++){
+        if(abs(f[i] - b[i]) != 0) {
+            c++;
+            flag = i;
+        }
+    }  
+
+    if(c - size % 2 == 0){
+        if(flag != -1){
+            f[flag] = b[flag] = min(f[flag], b[flag]);
+        }
+        for(int i=0;i<26;i++){
+            for(int j=0;j<f[i];j++) cout << char(i+'A');
+        }
+        if(flag != -1) cout << char(flag+'A');
+        for(int i=25;i>=0;i--){
+            for(int j=0;j<b[i];j++) cout << char(i+'A');
+        }
+        cout << "\n";
+    }
+    else cout << "NO SOLUTION\n";
+    
 }
