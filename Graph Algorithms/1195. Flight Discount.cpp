@@ -32,20 +32,14 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
-int n, k;
-string init, temp;
+int n, m, a, b, c;
+
 
 signed main(){
     opt;
-    cin >> n;
+    cin >> n >> m;
 
-    for(int i = 0; i < n; i++) init.pb('0');
-    for(int i = 0 ; i < (1 << n); i++){
-        k = i ^ (i >> 1);
-        temp = init;
-        for(int j=0;j<n ;j++)
-            if(k & (1 << j)) temp[j]='1';
-
-        cout << temp << "\n";
+    for(int i=0;i<m;i++){
+        cin >> a >> b >> c;
     }
 }

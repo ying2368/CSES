@@ -32,20 +32,36 @@ const int MEMINF = 0x3F;
 const int MEMINF_VAL = 0x3F3F3F3F;
 const int MEMLLINF_VAL = 0x3F3F3F3F3F3F3F3F;
 
-int n, k;
-string init, temp;
+int n, m, q, a, b, c;
+int dist[501][501];
+
 
 signed main(){
     opt;
-    cin >> n;
+    cin >> n >> m >> q;
+    
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= n; ++j)
+            dist[i][j] = (i == j ? 0 : 1e15); // 自己到自己距離為0，其餘初始化為無限大
 
-    for(int i = 0; i < n; i++) init.pb('0');
-    for(int i = 0 ; i < (1 << n); i++){
-        k = i ^ (i >> 1);
-        temp = init;
-        for(int j=0;j<n ;j++)
-            if(k & (1 << j)) temp[j]='1';
+    for(int i = 0; i < m; i++){
+        cin >> a >> b >> c;
+        dist[a][b] = min(dist[a][b], c);
+        dist[b][a] = min(dist[b][a], c);
+    }
 
-        cout << temp << "\n";
+    for(int k = 1; k <= n; k++){
+        for(int i = 1; i <= n ; i++){
+            for(int j = 1; j <= n; j++){
+                if( i == j ) continue;
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+            }
+        }
+    }
+
+    for(int i = 0; i < q; i++){
+        cin >> a >> b;
+        if (dist[a][b] == 1e15) cout <<"-1\n";
+        else cout << dist[a][b] << "\n";
     }
 }
